@@ -20,9 +20,8 @@
                     <p class="fs-6">Program Studi :</p>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>Select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="1">Teknik Informatika</option>
+                        <option value="2">Sistem Informasi</option>
                     </select>
                     <!-- Mata Kuliah -->
                     <p class="fs-6">Mata Kuliah :</p>
@@ -32,16 +31,31 @@
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
+                    <!-- Kelas -->
+                    <p class="fs-6">Kelas</p>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Select</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                    </select>
                     <!-- Pertemuan -->
                     <p class="fs-6">Pertemuam ke-</p>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>Select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <!-- Tanggal -->
-                    <p class="fs-6">Tanggal :</p>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="3">4</option>
+                        <option value="3">5</option>
+                        <option value="3">6</option>
+                        <option value="3">7</option>
+                        <option value="3">8</option>
+                        <option value="3">9</option>
+                        <option value="3">10</option>
+                        <option value="3">11</option>
+                        <option value="3">12</option>
+                        <option value="3">13</option>
+                        <option value="3">14</option>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -59,15 +73,18 @@
 <table class="display" id="abs">
     <thead>
         <tr>
-            <th>Data 1</th>
-            <th>Data 2</th>
-            <th>Data 3</th>
-            <th>Data 4</th>
+            <th>No</th>
+            <th>NIK</th>
+            <th>Nama Dosen</th>
+            <th>Program Studi</th>
+            <th>Mata Kuliah</th>
+            <th>Kelas</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         <?php
-       
+
         ?>
     </tbody>
 
