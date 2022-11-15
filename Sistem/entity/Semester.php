@@ -35,5 +35,18 @@ class Semester
     {
         $this->jumlah = $jumlah;
     }
+
+    public function __set($nama, $value)
+    {    
+        switch ($nama) {
+            case 'periode':
+                $this->periode = $value;
+                break;
+            case 'jumlah_semester':
+                $this->jumlah = $value;
+                break;
+        }
+    }
+
 }
 ?>

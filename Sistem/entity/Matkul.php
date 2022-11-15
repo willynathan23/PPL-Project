@@ -7,7 +7,7 @@ class Matkul
     /**
      * @return mixed
      */
-    public function getKode()
+    public function getKodeM()
     {
         return $this->kode;
     }
@@ -15,7 +15,7 @@ class Matkul
     /**
      * @param mixed $kode
      */
-    public function setKode($kode)
+    public function setKodeM($kode)
     {
         $this->kode = $kode;
     }
@@ -23,7 +23,7 @@ class Matkul
     /**
      * @return mixed
      */
-    public function getNama()
+    public function getNamaM()
     {
         return $this->nama;
     }
@@ -31,9 +31,22 @@ class Matkul
     /**
      * @param mixed $nama
      */
-    public function setNama ($nama)
+    public function setNamaM ($nama)
     {
         $this->nama = $nama;
     }
+
+    public function __set($nama, $value)
+    {    
+        switch ($nama) {
+            case 'kode_matkul':
+                $this->kode = $value;
+                break;
+            case 'nama_matkul':
+                $this->nama = $value;
+                break;
+        }
+    }
+
 }
 ?>

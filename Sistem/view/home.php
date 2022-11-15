@@ -17,62 +17,58 @@
                 </div>
                 <div class="modal-body">
                     <!-- Dosen -->
-                    <p class="fs-6">Dosen</p>
-                    <select class="form-select" aria-label="Default select example" name="txtDosen">
-                        <option selected>Select</option>
                         <?php
-                            /**@var $item Dosen */
-                            foreach ($dos as $item) {
-                                echo '<option value="' . $item->getNrp() . '">' . $item->getNama() . '</option>';
-                            }
-                            ?>
-                    </select>
+                        /**@var $item Dosen */
+                        foreach ($dos as $item) {
+                            echo '<input type="text" name="txtDosen" class="border-0 mb-2" readonly value="' . $item->getNrp().'/'. $item->getNama().'">';
+                        }
+                        ?>
                     <!-- Mata Kuliah -->
                     <p class="fs-6">Mata Kuliah :</p>
                     <select class="form-select" aria-label="Default select example" name="txtMatkul">
                         <option selected>Select</option>
                         <?php
-                            /**@var $item Matkul */
-                            foreach ($matt as $item) {
-                                echo '<option value="' . $item->getKode() . '">' . $item->getNama() . '</option>';
-                            }
-                            ?>
+                        /**@var $item Matkul */
+                        foreach ($matt as $item) {
+                            echo '<option value="' . $item->getKodeM() . '">' . $item->getNamaM() . '</option>';
+                        }
+                        ?>
                     </select>
                     <!-- Kelas -->
                     <p class="fs-6">Kelas</p>
                     <select class="form-select" aria-label="Default select example" name="txtKelas">
                         <option selected>Select</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
                     </select>
                     <!-- Tipe -->
                     <p class="fs-6">Tipe</p>
                     <select class="form-select" aria-label="Default select example" name="txtTipe">
                         <option selected>Select</option>
-                        <option value="1">Teori</option>
-                        <option value="2">Praktek</option>
+                        <option value="Teori">Teori</option>
+                        <option value="Praktek">Praktek</option>
                     </select>
                     <!-- Ruangan -->
                     <p class="fs-6">Ruangan</p>
                     <select class="form-select" aria-label="Default select example" name="txtRuangan">
                         <option selected>Select</option>
                         <?php
-                            /**@var $item Ruangan */
-                            foreach ($ruang as $item) {
-                                echo '<option value="' . $item->getKode() . '">' . $item->getNama() . '</option>';
-                            }
-                            ?>
+                        /**@var $item Ruangan */
+                        foreach ($ruang as $item) {
+                            echo '<option value="' . $item->getKodeR() . '">' . $item->getNamaR() . '</option>';
+                        }
+                        ?>
                     </select>
                     <!-- Semester -->
                     <p class="fs-6">Semester</p>
                     <select class="form-select" aria-label="Default select example" name="txtSemester">
                         <option selected>Select</option>
                         <?php
-                            /**@var $item Semester */
-                            foreach ($sems as $item) {
-                                echo '<option value="' . $item->getKode() . '">' . $item->getNama() . '</option>';
-                            }
-                            ?>
+                        /**@var $item Semester */
+                        foreach ($sems as $item) {
+                            echo '<option value="' . $item->getPeriode() . '">' . $item->getJumlah() . '-' . $item->getPeriode() . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="modal-footer">
@@ -91,10 +87,11 @@
 <table class="display" id="abs">
     <thead>
         <tr>
-            <th>NIK</th>
-            <th>Nama Dosen</th>
             <th>Mata Kuliah</th>
             <th>Kelas</th>
+            <th>Ruangan</th>
+            <th>Tipe</th>
+            <th>Semester</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -103,12 +100,13 @@
         /**@var $item Jadwal */
         foreach ($jad as $item) {
             echo '<tr>';
-            echo '<td>' . $item->getDosen()->getNrp() . '</td>';
-            echo '<td>' . $item->getDosen()->getNama() . '</td>';
-            echo '<td>' . $item->getMatkul()->getNama() . '</td>';
+            echo '<td>' . $item->getMatkul()->getNamaM() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
+            echo '<td>' . $item->getRuangan()->getNamaR() . '</td>';
+            echo '<td>' . $item->getTipe() . '</td>';
+            echo '<td>' . $item->getSemester()->getJumlah() . '</td>';
             echo '<td>
-            <button onclick="infojadwal(\'' . $item->getId() . '\')" class="btn btn-primary     ">
+            <button onclick="infojadwal" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
           </svg>
@@ -123,5 +121,6 @@
         $(document).ready(function() {
             $("#abs").DataTable();
         });
+
     </script>
 </table>

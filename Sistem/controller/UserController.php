@@ -17,9 +17,9 @@ class UserController
             $result = $this->userDao->userLogin($email, $password);
             if ($result[0]['email'] == $email) {
                 $_SESSION['web_login'] = true;
-                header('location:index.php');
+                header('location:index.php?ahref=home');
             } else {
-                echo '<div class="bg-error>Invalid</div>';
+                echo '<div class="bg-error>Wrong password</div>';
             }
         }
         include_once 'view/login.php';
@@ -29,6 +29,6 @@ class UserController
     {
         session_unset();
         session_destroy();
-        header('location:index.php');
+        header('location:index.php?ahref=login');
     }
 }

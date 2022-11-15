@@ -1,9 +1,9 @@
 <?php 
 class SemesterDaoImpl
 {
-    public function fetchAllDosen() {
+    public function fetchAllSemester() {
         $link = PDOUtil::createConnection();    
-        $query = 'SELECT semester.*, FROM semester ORDER BY periode ASC';
+        $query = 'SELECT semester.* FROM semester ORDER BY periode ASC';
         $stmt = $link->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,'Semester');
         $stmt->execute();

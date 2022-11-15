@@ -56,22 +56,7 @@ class Jadwal
         $this->matkul = $matkul;
     }
 
-    public function __set($nama, $value)
-    {
-        if (!isset($this->matkul)) {
-            $this->matkul = new Matkul();
-        }
-
-        switch ($nama) {
-            case 'Matkul kode':
-                $this->matkul->setKode($value);
-                break;
-            case 'Matkul nama':
-                $this->matkul->setNama($value);
-                break;
-        }
-    }
-
+    
     /**
      * @return Ruangan
      */
@@ -86,23 +71,7 @@ class Jadwal
     {
         $this->ruangan = $ruangan;
     }
-
-    public function __set($nama, $value)
-    {
-        if (!isset($this->ruangan)) {
-            $this->ruangan = new Ruangan();
-        }
-
-        switch ($nama) {
-            case 'Ruangan_kode':
-                $this->ruangan->setId($value);
-                break;
-            case 'Ruangan nama':
-                $this->ruangan->setName($value);
-                break;
-        }
-    }
-
+    
     /**
      * @return Dosen
      */
@@ -117,22 +86,7 @@ class Jadwal
     {
         $this->dosen = $dosen;
     }
-
-    public function __set($nama, $value)
-    {
-        if (!isset($this->dosen)) {
-            $this->dosen = new Dosen();
-        }
-
-        switch ($nama) {
-            case 'Dosen nrp':
-                $this->dosen->setNrp($value);
-                break;
-            case 'Dosen nama':
-                $this->dosen->setNama($value);
-                break;
-        }
-    }
+    
 
     /**
      * @return Semester
@@ -148,18 +102,45 @@ class Jadwal
     {
         $this->semester = $semester;
     }
-
-    public function __set($jumlah, $value)
+    
+    public function __set($nama, $value)
     {
+        if (!isset($this->matkul)) {
+            $this->matkul = new Matkul();
+        }
+        if (!isset($this->ruangan)) {
+            $this->ruangan = new Ruangan();
+        }
+        if (!isset($this->dosen)) {
+            $this->dosen = new Dosen();
+        }
         if (!isset($this->semester)) {
             $this->semester = new Semester();
         }
-
-        switch ($jumlah) {
-            case 'Semester_periode':
+    
+        switch ($nama) {
+            case 'kodematkul':
+                $this->matkul->setKodeM($value);
+                break;
+            case 'nama_matkul':
+                $this->matkul->setNamaM($value);
+                break;
+            case 'koderuangan':
+                $this->ruangan->setKodeR($value);
+                break;
+            case 'nama_ruangan':
+                $this->ruangan->setNamaR($value);
+                break;
+            case 'nrpdosen':
+                $this->dosen->setNrp($value);
+                break;
+            case 'nama_dosen':
+                $this->dosen->setNama($value);
+                break;
+            case 'periodesems':
                 $this->semester->setPeriode($value);
                 break;
-            case 'Semester jumlah':
+            case 'jumlah_semester':
                 $this->semester->setJumlah($value);
                 break;
         }

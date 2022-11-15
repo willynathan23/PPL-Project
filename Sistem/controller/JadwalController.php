@@ -2,6 +2,10 @@
 class JadwalController
 {
     private $jadwalDao;
+    private $dosenDao;
+    private $matkulDao;
+    private $ruanganDao;
+    private $semesterDao;
 
     public function __construct()
     {
@@ -12,7 +16,7 @@ class JadwalController
         $this->semesterDao = new SemesterDaoImpl();
     }
 
-    public function index(){
+    public function index() { 
         $tambah = filter_input(INPUT_POST,'btnSubmit');
         if (isset($tambah)){
             $dosen = filter_input(INPUT_POST, 'txtDosen');
@@ -22,27 +26,36 @@ class JadwalController
             $ruangan = filter_input(INPUT_POST, 'txtRuangan');
             $semester = filter_input(INPUT_POST, 'txtSemester');
         
-            if (empty($dosen)){
-                echo '<div class="bg-error">Please fill Dosen</div>';
-            } else if (empty($matkul)){
+            if (empty($matkul)){
                 echo '<div class="bg-error">Please fill Mata Kuliah</div>';
-            } else if (empty($kelas)){
+            } elseif (empty($kelas)){
                 echo '<div class="bg-error">Please fill Kelas</div>';
-            } else if (empty($tipe)){
+            } elseif (empty($tipe)){
                 echo '<div class="bg-error">Please fill Tipe</div>';
-            } else if (empty($ruangan)){
+            } elseif (empty($ruangan)){
                 echo '<div class="bg-error">Please fill Ruangan</div>';
-            } else if (empty($semester)){
+            } elseif (empty($semester)){
                 echo '<div class="bg-error">Please fill Semester</div>';
             } else {
                 $jadwal = new Jadwal();
                 $jadwal->getDosen()->setNrp($dosen);
-                $jadwal->getMatkul()->setKode($matkul);
+                $jadwal->getMatkul()->setKodeM($matkul);
                 $jadwal->setKelas($kelas);
                 $jadwal->setTipe($tipe);
-                $jadwal->getRuangan()->setKode($ruangan);
+                $jadwal->getRuangan()->setKodeR($ruangan);
                 $jadwal->getSemester()->setPeriode($semester);
-                
+                $result = $this->jadwalDao->insertNewJadwal($jadwal);
+                if ($result) {
+                    echo '<script>
+                    swal({
+                        title: "Good job!",
+                        text: "Add Data Success",
+                        icon: "success",
+                      });
+                      </script>';
+                } else {
+                    echo '<div class="bg-error">Error on add data</div>';
+                }
             }
         }
         $jad = $this->jadwalDao->fetchAllJadwal();
@@ -53,5 +66,3 @@ class JadwalController
         include_once 'view/home.php';
     }
 }
-
-?>

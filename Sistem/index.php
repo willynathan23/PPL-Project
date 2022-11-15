@@ -2,8 +2,20 @@
 session_start();
 include_once 'util/PDOUtil.php';
 include_once 'entity/User.php';
+include_once 'entity/Dosen.php';
+include_once 'entity/Jadwal.php';
+include_once 'entity/Matkul.php';
+include_once 'entity/Ruangan.php';
+include_once 'entity/Semester.php';
 include_once 'dao/UserDaoImpl.php';
+include_once 'dao/DosenDaoImpl.php';
+include_once 'dao/JadwalDaoImpl.php';
+include_once 'dao/MatkulDaoImpl.php';
+include_once 'dao/RuanganDaoImpl.php';
+include_once 'dao/SemesterDaoImpl.php';
 include_once 'controller/UserController.php';
+include_once 'controller/JadwalController.php';
+
 
 if (!isset($_SESSION['web_login'])) {
     $_SESSION['web_login'] = false;
@@ -22,6 +34,8 @@ if (!isset($_SESSION['web_login'])) {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="style/style.css">
     <title>Absensi</title>
@@ -72,7 +86,8 @@ if (!isset($_SESSION['web_login'])) {
         $menu = filter_input(INPUT_GET, "ahref");
         switch ($menu) {
             case "home":
-                include_once "view/home.php";
+                $jadwalController = new JadwalController();
+                $jadwalController->index();
                 break;
             case "profile":
                 include_once "view/profile.php";
@@ -81,8 +96,12 @@ if (!isset($_SESSION['web_login'])) {
                 $UserController = new UserController();
                 $UserController->logout();
                 break;
+            case "info":
+                include_once "view/home-info.php";
+                break;
             default:
-                include_once "view/home.php";
+                $UserController = new UserController();
+                $UserController->index();
         }
     } else {
         $UserController = new UserController;

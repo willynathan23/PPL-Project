@@ -35,5 +35,17 @@ class Dosen
     {
         $this->nama = $nama;
     }
+
+    public function __set($nama, $value)
+    {
+        switch ($nama) {
+            case 'nrp_dosen':
+                $this->nrp = $value;
+                break;
+            case 'nama_dosen':
+                $this->nama = $value;
+                break;
+        }
+    }
+
 }
-?>

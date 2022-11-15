@@ -7,7 +7,7 @@ class Ruangan
     /**
      * @return mixed
      */
-    public function getKode()
+    public function getKodeR()
     {
         return $this->kode;
     }
@@ -15,7 +15,7 @@ class Ruangan
     /**
      * @param mixed $kode
      */
-    public function setKode($kode)
+    public function setKodeR($kode)
     {
         $this->kode = $kode;
     }
@@ -23,7 +23,7 @@ class Ruangan
     /**
      * @return mixed
      */
-    public function getNama()
+    public function getNamaR()
     {
         return $this->nama;
     }
@@ -31,9 +31,21 @@ class Ruangan
     /**
      * @param mixed $nama
      */
-    public function setNama ($nama)
+    public function setNamaR ($nama)
     {
         $this->nama = $nama;
+    }
+
+    public function __set($nama, $value)
+    {    
+        switch ($nama) {
+            case 'kode_ruangan':
+                $this->kode = $value;
+                break;
+            case 'nama_ruangan':
+                $this->nama = $value;
+                break;
+        }
     }
 }
 ?>
