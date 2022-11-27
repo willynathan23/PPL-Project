@@ -1,20 +1,22 @@
 <?php
 session_start();
 include_once 'util/PDOUtil.php';
-include_once 'entity/User.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Jadwal.php';
 include_once 'entity/Matkul.php';
 include_once 'entity/Ruangan.php';
 include_once 'entity/Semester.php';
+include_once 'entity/DetailJadwal.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/JadwalDaoImpl.php';
 include_once 'dao/MatkulDaoImpl.php';
 include_once 'dao/RuanganDaoImpl.php';
 include_once 'dao/SemesterDaoImpl.php';
-include_once 'controller/UserController.php';
+include_once 'dao/DetailDaoImpl.php';
 include_once 'controller/JadwalController.php';
+include_once 'controller/LoginController.php';
+include_once 'controller/DetailController.php';
 
 
 if (!isset($_SESSION['web_login'])) {
@@ -47,7 +49,7 @@ if (!isset($_SESSION['web_login'])) {
     ?>
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color:#89FF41;">
             <div class="container">
-                <a class="navbar-brand" style="color: #747474;">Hi, Dummy</a>
+                <a class="navbar-brand" style="color: #747474;">Hi, <?php echo $_SESSION['nama'] ?></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -93,19 +95,20 @@ if (!isset($_SESSION['web_login'])) {
                 include_once "view/profile.php";
                 break;
             case "logout":
-                $UserController = new UserController();
-                $UserController->logout();
+                $loginContoller = new LoginController();
+                $loginContoller->logout();
                 break;
             case "info":
-                include_once "view/home-info.php";
+                $detailController = new DetailController();
+                $detailController->index();
                 break;
             default:
-                $UserController = new UserController();
-                $UserController->index();
+                $loginContoller = new LoginController();
+                $loginContoller->index();
         }
     } else {
-        $UserController = new UserController;
-        $UserController->index();
+        $loginContoller = new LoginController();
+        $loginContoller->index();
     }
         ?>
         </div>

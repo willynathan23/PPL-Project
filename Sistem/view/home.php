@@ -16,60 +16,91 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Dosen -->
-                        <?php
-                        /**@var $item Dosen */
-                        foreach ($dos as $item) {
-                            echo '<input type="text" name="txtDosen" class="border-0 mb-2" readonly value="' . $item->getNrp().'/'. $item->getNama().'">';
-                        }
-                        ?>
+
                     <!-- Mata Kuliah -->
-                    <p class="fs-6">Mata Kuliah :</p>
-                    <select class="form-select" aria-label="Default select example" name="txtMatkul">
+                    <p class="fs-6 fw-bold">Mata Kuliah :</p>
+                    <select class="form-select" aria-label="Default select example" name="matkul">
                         <option selected>Select</option>
                         <?php
                         /**@var $item Matkul */
-                        foreach ($matt as $item) {
-                            echo '<option value="' . $item->getKodeM() . '">' . $item->getNamaM() . '</option>';
+                        foreach ($jad as $item) {
+                            echo '<option value="' . $item->getMatkul()->getKodeM() . ' ' . $item->getKelas() . ' ' . $item->getTipe() . '">' . $item->getMatkul()->getNamaM() . ' ' . $item->getKelas() . ' / ' . $item->getTipe() . '</option>';
                         }
                         ?>
                     </select>
-                    <!-- Kelas -->
-                    <p class="fs-6">Kelas</p>
-                    <select class="form-select" aria-label="Default select example" name="txtKelas">
-                        <option selected>Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                    </select>
-                    <!-- Tipe -->
-                    <p class="fs-6">Tipe</p>
-                    <select class="form-select" aria-label="Default select example" name="txtTipe">
-                        <option selected>Select</option>
-                        <option value="Teori">Teori</option>
-                        <option value="Praktek">Praktek</option>
-                    </select>
-                    <!-- Ruangan -->
-                    <p class="fs-6">Ruangan</p>
-                    <select class="form-select" aria-label="Default select example" name="txtRuangan">
-                        <option selected>Select</option>
-                        <?php
-                        /**@var $item Ruangan */
-                        foreach ($ruang as $item) {
-                            echo '<option value="' . $item->getKodeR() . '">' . $item->getNamaR() . '</option>';
-                        }
-                        ?>
-                    </select>
+                    <hr>
+
                     <!-- Semester -->
-                    <p class="fs-6">Semester</p>
-                    <select class="form-select" aria-label="Default select example" name="txtSemester">
+                    <p class="fs-6 fw-bold">Semester</p>
+                    <select class="form-select mb-4" aria-label="Default select example" name="semester">
                         <option selected>Select</option>
+
                         <?php
+
                         /**@var $item Semester */
                         foreach ($sems as $item) {
-                            echo '<option value="' . $item->getPeriode() . '">' . $item->getJumlah() . '-' . $item->getPeriode() . '</option>';
+                            echo '<option value="' . $item->getPeriode() . '">' . $item->getPeriode() . '</option>';
                         }
                         ?>
                     </select>
+                    <hr>
+
+                    <!-- Pertemuan -->
+                    <p class="fs-6 fw-bold">Pertemuan</p>
+                    <select class="form-select" aria-label="Default select example" name="pertemuan">
+                        <option selected>Select</option>
+
+                        <?php
+
+                        for ($i = 1; $i <= 16; $i++) {
+                            echo "<option value='$i'>" . $i . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <hr>
+
+                    <!-- Waktu,tgl -->
+                    <p class="fs-6 fw-bold">Waktu</p>
+                    <div class="row mb-3">
+                        <!-- Tanggal -->
+                        <p class="fs-6">Tanggal</p>
+                        <input type="date" name="tanggal">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- Waktu mulai -->
+                            <p class="fs-6">Waktu mulai</p>
+                            <input type="time" name="waktumulai">
+                        </div>
+                        <div class="col-6">
+                            <!-- Waktu selesai -->
+                            <p class="fs-6">Waktu selesai</p>
+                            <input type="time" name="waktuselesai">
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Asisten -->
+                    <p class="fs-6 fw-bold">Asisten</p>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label for="namamahasiswa">Nama Mahasiswa</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="namamahasiswa" id="namamahasiswa"><br>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="totaljam">Total Jam</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" name="totaljam" id="totaljam" min=0>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -104,9 +135,9 @@
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getRuangan()->getNamaR() . '</td>';
             echo '<td>' . $item->getTipe() . '</td>';
-            echo '<td>' . $item->getSemester()->getJumlah() . '</td>';
+            echo '<td>' . $item->getSemester()->getJumlahSemester() . '</td>';
             echo '<td>
-            <button onclick="infojadwal" class="btn btn-primary">
+            <button onclick="infojadwal(\'' . $item->getKelas() . '\')" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
           </svg>
@@ -122,5 +153,8 @@
             $("#abs").DataTable();
         });
 
+        function infojadwal(id) {
+            window.location = "index.php?ahref=info&pjid=" + id;
+        }
     </script>
 </table>

@@ -2,8 +2,8 @@
     <div class="container rounded-3">
         <form method="post">
             <div class="mb-3 mt-5 ms-5 me-5">
-                <label for="emailId" class="fs-4">Email</label>
-                <input type="text" class="form-control" id="emailId" name="txtEmail" required autofocus>
+                <label for="nikId" class="fs-4">NIK</label>
+                <input type="text" class="form-control" id="nikId" name="txtNik" required autofocus>
             </div>
             <div class="mb-4 ms-5 me-5">
                 <label for="passwordId" class="fs-4">Password</label>

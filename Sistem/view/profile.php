@@ -8,9 +8,9 @@
         </div>
         <div class="row fs-4 mt-4">
             <div class="col-4"></div>
-            <div class="col-4">
-                <p>7921344</p>
-                <p>Dummy</p>
+            <div class="col-4 text-center">
+                <p><?php echo $_SESSION['nrp'] ?></p>
+                <p><?php echo $_SESSION['nama'] ?></p>
             </div>
             <div class="col-4"></div>
         </div>
@@ -19,15 +19,11 @@
     <div class="col-7">
         <div class="row mt-5">
             <p class="fs-3">NRP</p>
-            <p class="fs-4">7921344</p>
+            <p class="fs-4"><?php echo $_SESSION['nrp'] ?></p>
         </div>
         <div class="row mt-5">
             <p class="fs-3">Nama</p>
-            <p class="fs-4">Dummy</p>
-        </div>
-        <div class="row mt-5">
-            <p class="fs-3">Email</p>
-            <p class="fs-4">Dummy@gmail.com</p>
+            <p class="fs-4"><?php echo $_SESSION['nama'] ?></p>
         </div>
         <div class="row mt-5">
             <div class="col-6">

@@ -2,7 +2,7 @@
 class Semester
 {
     private $periode;
-    private $jumlah;
+    private $jumlah_semester;
 
     /**
      * @return mixed
@@ -23,30 +23,25 @@ class Semester
     /**
      * @return mixed
      */
-    public function getJumlah()
+    public function getJumlahSemester()
     {
-        return $this->jumlah;
+        return $this->jumlah_semester;
     }
 
     /**
      * @param mixed $jumlah
      */
-    public function setJumlah($jumlah)
+    public function setJumlahSemester($jumlah_semester)
     {
-        $this->jumlah = $jumlah;
+        $this->jumlah_semester = $jumlah_semester;
     }
 
     public function __set($nama, $value)
-    {    
+    {
         switch ($nama) {
             case 'periode':
                 $this->periode = $value;
                 break;
-            case 'jumlah_semester':
-                $this->jumlah = $value;
-                break;
         }
     }
-
 }
-?>

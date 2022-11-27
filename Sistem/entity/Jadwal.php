@@ -3,6 +3,8 @@ class Jadwal
 {
     private $kelas;
     private $tipe;
+
+
     private $matkul;
     private $ruangan;
     private $dosen;
@@ -56,7 +58,7 @@ class Jadwal
         $this->matkul = $matkul;
     }
 
-    
+
     /**
      * @return Ruangan
      */
@@ -71,7 +73,7 @@ class Jadwal
     {
         $this->ruangan = $ruangan;
     }
-    
+
     /**
      * @return Dosen
      */
@@ -86,7 +88,7 @@ class Jadwal
     {
         $this->dosen = $dosen;
     }
-    
+
 
     /**
      * @return Semester
@@ -102,7 +104,7 @@ class Jadwal
     {
         $this->semester = $semester;
     }
-    
+
     public function __set($nama, $value)
     {
         if (!isset($this->matkul)) {
@@ -117,7 +119,7 @@ class Jadwal
         if (!isset($this->semester)) {
             $this->semester = new Semester();
         }
-    
+
         switch ($nama) {
             case 'kodematkul':
                 $this->matkul->setKodeM($value);
@@ -141,7 +143,7 @@ class Jadwal
                 $this->semester->setPeriode($value);
                 break;
             case 'jumlah_semester':
-                $this->semester->setJumlah($value);
+                $this->semester->setJumlahSemester($value);
                 break;
         }
     }

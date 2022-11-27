@@ -1,8 +1,9 @@
-<?php 
+<?php
 class Dosen
 {
     private $nrp;
     private $nama;
+    private $password;
 
     /**
      * @return mixed
@@ -36,6 +37,17 @@ class Dosen
         $this->nama = $nama;
     }
 
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
     public function __set($nama, $value)
     {
         switch ($nama) {
@@ -47,5 +59,4 @@ class Dosen
                 break;
         }
     }
-
 }
