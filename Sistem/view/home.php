@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <!-- Button trigger modal -->
     <button type="button" class="btn mt-3" style="background-color: #0EAB01; color:white;" data-bs-toggle="modal" data-bs-target="#Input">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -10,7 +10,7 @@
     <!-- Modal -->
     <div class="modal fade" id="Input" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: #D5FFBC;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalToggleLabel">Berita Acara</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -64,7 +64,7 @@
                     <div class="row mb-3">
                         <!-- Tanggal -->
                         <p class="fs-6">Tanggal</p>
-                        <input type="date" name="tanggal">
+                        <input type="date" name="tanggal" class="py-1 mx-3" style="width: 90%;">
                     </div>
 
                     <div class="row">
@@ -86,21 +86,65 @@
 
                     <div class="row mb-2">
                         <div class="col-4">
-                            <label for="namamahasiswa">Nama Mahasiswa</label>
+                            <label for="namamahasiswa1">Nama Mahasiswa 1</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" name="namamahasiswa" id="namamahasiswa"><br>
+                            <input type="text" name="namamahasiswa1" id="namamahasiswa1"><br>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-4">
-                            <label for="totaljam">Total Jam</label>
+                            <label for="totaljam1">Total Jam 1</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" name="totaljam" id="totaljam" min=0>
+                            <input type="number" name="totaljam1" id="totaljam1" min=0>
                         </div>
                     </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label for="namamahasiswa2">Nama Mahasiswa 2</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="namamahasiswa2" id="namamahasiswa2"><br>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <label for="totaljam2">Total Jam 2</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" name="totaljam2" id="totaljam2" min=0>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label for="namamahasiswa3">Nama Mahasiswa 3</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="namamahasiswa3" id="namamahasiswa3"><br>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <label for="totaljam3">Total Jam 3</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" name="totaljam3" id="totaljam3" min=0>
+                        </div>
+                    </div>
+                    <!-- Materi -->
+                    <p class="fs-6 fw-bold">Materi</p>
+                    <textarea class="form-control mb-4" id="materi" style="height: 5rem;" data-sb-validations="required" name="materi" required></textarea>
+
+                    <!-- Bukti Kegiatan -->
+                    <p class="fs-6 fw-bold">Bukti Kegiatan</p>
+
+                    <input type="file" class="form-control mb-4" name="gambar" accept="image/png, image/jpeg">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -117,7 +161,7 @@
 
 <table class="display" id="abs">
     <thead>
-        <tr>
+        <tr style="background-color: #89FF41;">
             <th>Mata Kuliah</th>
             <th>Kelas</th>
             <th>Ruangan</th>
@@ -129,19 +173,23 @@
     <tbody>
         <?php
         /**@var $item Jadwal */
+
         foreach ($jad as $item) {
+
             echo '<tr>';
             echo '<td>' . $item->getMatkul()->getNamaM() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getRuangan()->getNamaR() . '</td>';
             echo '<td>' . $item->getTipe() . '</td>';
-            echo '<td>' . $item->getSemester()->getJumlahSemester() . '</td>';
+            echo '<td>' . $item->getSemester()->getPeriode() . '</td>';
             echo '<td>
-            <button onclick="infojadwal(\'' . $item->getKelas() . '\')" class="btn btn-primary">
+            <a href="index.php?ahref=info&kode=' . $item->getMatkul()->getKodeM() . '&kelas=' . $item->getKelas() . '&semester=' . $item->getSemester()->getPeriode() . '&ruangan=' . $item->getRuangan()->getKodeR() . '&nrpdosen=' . $_SESSION['nrp'] . '">
+            <button class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-          </svg>
+            </svg>
             </button>
+            </a>
             </td>';
             echo '</tr>';
         }
@@ -152,9 +200,5 @@
         $(document).ready(function() {
             $("#abs").DataTable();
         });
-
-        function infojadwal(id) {
-            window.location = "index.php?ahref=info&pjid=" + id;
-        }
     </script>
 </table>

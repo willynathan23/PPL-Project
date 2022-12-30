@@ -1,4 +1,4 @@
-<div class="container position-absolute top-50 start-50 translate-middle col-4" id="navbar">
+<div class="container position-absolute top-50 start-50 translate-middle col-4 rounded-3" id="navbar">
     <div class="container rounded-3">
         <form method="post">
             <div class="mb-3 mt-5 ms-5 me-5">

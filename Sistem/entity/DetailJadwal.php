@@ -1,11 +1,13 @@
 <?php
-class Detail
+class DetailJadwal
 {
 
     private $jumlah_pertemuan;
     private $tgl_pertemuan;
     private $waktu_mulai;
     private $waktu_selesai;
+    private $materi;
+    private $gambar;
 
     private $jadwal;
 
@@ -74,6 +76,38 @@ class Detail
     }
 
     /**
+     * @return mixed
+     */
+    public function getMateri()
+    {
+        return $this->materi;
+    }
+
+    /**
+     * @param mixed $materi
+     */
+    public function setMateri($materi)
+    {
+        $this->materi = $materi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGambar()
+    {
+        return $this->gambar;
+    }
+
+    /**
+     * @param mixed $gambar
+     */
+    public function setGambar($gambar)
+    {
+        $this->gambar = $gambar;
+    }
+
+    /**
      * @return Jadwal
      */
     public function getJadwal()
@@ -117,6 +151,9 @@ class Detail
                 break;
             case 'nrpdosen':
                 $this->jadwal->getDosen()->setNrp($value);
+                break;
+            case 'namadosen':
+                $this->jadwal->getDosen()->setNama($value);
                 break;
             case 'periodesems':
                 $this->jadwal->getSemester()->setPeriode($value);

@@ -38,32 +38,34 @@
 
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">You Wanna Change Password?</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div>
-                                    <label for="oldpass">Old Password</label>
-                                    <input type="password" class="form-control" id="oldpass" name="txtPassword" required>
+                    <form action="" method="POST">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content" style="background-color: #D5FFBC;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">You Wanna Change Password?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div>
-                                    <label for="newpass">New Password</label>
-                                    <input type="password" class="form-control" id="newpass" name="txtPassword" required>
+                                <div class="modal-body">
+                                    <div>
+                                        <label for="oldpass">Old Password</label>
+                                        <input type="password" class="form-control" id="oldpass" name="oldPassword" required>
+                                    </div>
+                                    <div>
+                                        <label for="newpass">New Password</label>
+                                        <input type="password" class="form-control" id="newpass" name="newPassword" required>
+                                    </div>
+                                    <div>
+                                        <label for="conpass">Confirm Password</label>
+                                        <input type="password" class="form-control" id="conpass" name="confirmPassword" required>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="conpass">Confirm Password</label>
-                                    <input type="password" class="form-control" id="conpass" name="txtPassword" required>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" name="btnSubmit">Save</button>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

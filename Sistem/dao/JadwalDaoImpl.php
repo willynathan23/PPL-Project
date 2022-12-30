@@ -21,6 +21,26 @@ class JadwalDaoImpl
         return $stmt->fetchAll();
     }
 
+    public function fetchAllJadwal2()
+    {
+        $link = PDOUtil::createConnection();
+        $query = 'SELECT jadwal.kelas, jadwal.tipe, jadwal.Matkul_kode_matkul as "kodematkul", 
+        jadwal.Ruangan_kode_ruangan as "koderuangan", jadwal.Dosen_nrp_dosen as "nrpdosen", 
+        dosen.nama as "nama_dosen",
+        jadwal.Semester_periode as "periodesems",
+        matkul.nama_matkul, semester.jumlah_semester, ruangan.nama_ruangan FROM jadwal 
+        INNER JOIN matkul ON jadwal.matkul_kode_matkul=matkul.kode_matkul 
+        INNER JOIN semester ON jadwal.semester_periode=semester.periode
+        INNER JOIN ruangan ON jadwal.ruangan_kode_ruangan=ruangan.kode_ruangan
+        INNER JOIN dosen ON jadwal.dosen_nrp_dosen=dosen.nrp
+        ';
+        $stmt = $link->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jadwal');
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchAll();
+    }
+
     public function fetchJadwal($kelas, $kode_matkul, $nrp_dosen, $semester, $tipe)
     {
         $link = PDOUtil::createConnection();
@@ -54,18 +74,18 @@ class JadwalDaoImpl
 
 
 
-    public function insertNewJadwal(Jadwal $jadwal)
+    public function insertNewJadwal($kelas, $kode, $nrp, $semester, $ruangan, $tipe)
     {
         $result = 0;
         $link = PDOUtil::createConnection();
-        $query = 'INSERT INTO jadwal(Dosen_nrp_dosen, Matkul_kode_matkul, kelas, tipe, Ruangan_kode_ruangan, Semester_periode) VALUES(?,?,?,?,?,?)';
+        $query = 'INSERT INTO jadwal(kelas, matkul_kode_matkul, dosen_nrp_dosen, semester_periode, ruangan_kode_ruangan, tipe) VALUES(?,?,?,?,?,?)';
         $stmt = $link->prepare($query);
-        $stmt->bindValue(1, $jadwal->getDosen()->getNrp());
-        $stmt->bindValue(2, $jadwal->getMatkul()->getKodeM());
-        $stmt->bindValue(3, $jadwal->getKelas());
-        $stmt->bindValue(4, $jadwal->getTipe());
-        $stmt->bindValue(5, $jadwal->getRuangan()->getKodeR());
-        $stmt->bindValue(6, $jadwal->getSemester()->getPeriode());
+        $stmt->bindValue(1, $kelas);
+        $stmt->bindValue(2, $kode);
+        $stmt->bindValue(3, $nrp);
+        $stmt->bindValue(4, $semester);
+        $stmt->bindValue(5, $ruangan);
+        $stmt->bindValue(6, $tipe);
         $link->beginTransaction();
         if ($stmt->execute()) {
             $link->commit();

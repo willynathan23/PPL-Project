@@ -7,6 +7,9 @@ include_once 'entity/Matkul.php';
 include_once 'entity/Ruangan.php';
 include_once 'entity/Semester.php';
 include_once 'entity/DetailJadwal.php';
+include_once 'entity/Mahasiswa.php';
+include_once 'entity/AdminTU.php';
+include_once 'entity/Asisten.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/JadwalDaoImpl.php';
@@ -14,14 +17,30 @@ include_once 'dao/MatkulDaoImpl.php';
 include_once 'dao/RuanganDaoImpl.php';
 include_once 'dao/SemesterDaoImpl.php';
 include_once 'dao/DetailDaoImpl.php';
+include_once 'dao/AsistenDaoImpl.php';
+include_once 'dao/MahasiswaDaoImpl.php';
+include_once 'dao/AdminDaoImpl.php';
 include_once 'controller/JadwalController.php';
 include_once 'controller/LoginController.php';
 include_once 'controller/DetailController.php';
+include_once 'controller/ProfileController.php';
+include_once 'controller/MahasiswaController.php';
+include_once 'controller/MataKuliahController.php';
+include_once 'controller/DosenController.php';
+include_once 'controller/RuanganController.php';
+include_once 'controller/SemesterController.php';
+include_once 'controller/JadwalAdminController.php';
+include_once 'controller/AsistenController.php';
+include_once 'controller/HomeAdminController.php';
 
 
 if (!isset($_SESSION['web_login'])) {
     $_SESSION['web_login'] = false;
 }
+if (!isset($_SESSION['web_admin'])) {
+    $_SESSION['web_admin'] = false;
+}
+
 ?>
 
 
@@ -45,11 +64,11 @@ if (!isset($_SESSION['web_login'])) {
 
 <body>
     <?php
-    if ($_SESSION['web_login']) {
+    if ($_SESSION['web_login'] || $_SESSION['web_admin']) {
     ?>
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color:#89FF41;">
             <div class="container">
-                <a class="navbar-brand" style="color: #747474;">Hi, <?php echo $_SESSION['nama'] ?></a>
+                <a class="navbar-brand" style="color: #747474;">Hi, <?php echo $_SESSION['nama'] ?? '' ?></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -86,25 +105,94 @@ if (!isset($_SESSION['web_login'])) {
         <div class="container">
         <?php
         $menu = filter_input(INPUT_GET, "ahref");
-        switch ($menu) {
-            case "home":
-                $jadwalController = new JadwalController();
-                $jadwalController->index();
-                break;
-            case "profile":
-                include_once "view/profile.php";
-                break;
-            case "logout":
-                $loginContoller = new LoginController();
-                $loginContoller->logout();
-                break;
-            case "info":
-                $detailController = new DetailController();
-                $detailController->index();
-                break;
-            default:
-                $loginContoller = new LoginController();
-                $loginContoller->index();
+        if ($_SESSION['web_login']) {
+            switch ($menu) {
+                case "home":
+                    $jadwalController = new JadwalController();
+                    $jadwalController->index();
+                    break;
+                case "profile":
+                    $profileController = new ProfileController();
+                    $profileController->index();
+                    break;
+                case "logout":
+                    $loginContoller = new LoginController();
+                    $loginContoller->logout();
+                    break;
+                case "info":
+                    $detailController = new DetailController();
+                    $detailController->index();
+                    break;
+                case "asisten":
+                    $asistenController = new AsistenController();
+                    $asistenController->index();
+                    break;
+                default:
+                    $loginContoller = new LoginController();
+                    $loginContoller->index();
+            }
+        } else if ($_SESSION['web_admin']) {
+            switch ($menu) {
+                case "home":
+                    $homeAdminController = new HomeAdminController();
+                    $homeAdminController->index();
+                    break;
+                case "profile":
+                    $profileController = new ProfileController();
+                    $profileController->index();
+                    break;
+                case "logout":
+                    $loginContoller = new LoginController();
+                    $loginContoller->logout();
+                    break;
+                case "mahasiswa":
+                    $mahasiswaController = new MahasiswaController();
+                    $mahasiswaController->index();
+                    break;
+                case "upmahasiswa":
+                    $mahasiswaController = new MahasiswaController();
+                    $mahasiswaController->upindex();
+                    break;
+                case "matakuliah":
+                    $matakuliahController = new MataKuliahController();
+                    $matakuliahController->index();
+                    break;
+                case "upmatakuliah":
+                    $matakuliahController = new MataKuliahController();
+                    $matakuliahController->upindex();
+                    break;
+                case "dosen":
+                    $dosenController = new DosenController();
+                    $dosenController->index();
+                    break;
+                case "updosen":
+                    $dosenController = new DosenController();
+                    $dosenController->upindex();
+                    break;
+                case "ruangan":
+                    $ruanganController = new RuanganController();
+                    $ruanganController->index();
+                    break;
+                case "upruangan":
+                    $ruanganController = new RuanganController();
+                    $ruanganController->upindex();
+                    break;
+                case "semester":
+                    $semesterController = new SemesterController();
+                    $semesterController->index();
+                    break;
+                case "upsemester":
+                    $semesterController = new SemesterController();
+                    $semesterController->upindex();
+                    break;
+                case "jadwal":
+                    $jadwalController = new JadwalAdminController();
+                    $jadwalController->index();
+                    break;
+                default:
+                    $loginContoller = new LoginController();
+                    $loginContoller->index();
+            }
         }
     } else {
         $loginContoller = new LoginController();

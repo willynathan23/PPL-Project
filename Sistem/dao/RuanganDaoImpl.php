@@ -10,5 +10,61 @@ class RuanganDaoImpl
         $link = null;
         return $stmt->fetchAll();
     }
+
+
+    public function fetchRuangan($kode)
+    {
+        $link = PDOUtil::createConnection();
+        $query = "SELECT * FROM ruangan WHERE kode_ruangan = ?";
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $kode);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchObject('Ruangan');
+    }
+
+    public function updateRuangan(Ruangan $ruangan)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+
+        $query = 'UPDATE ruangan SET nama_ruangan = ? WHERE kode_ruangan = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $ruangan->getNamaR());
+        $stmt->bindValue(2, $ruangan->getKodeR());
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+
+        $link = null;
+        return $result;
+    }
+
+
+    public function deleteRuangan($kode)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+
+        $query = 'DELETE FROM ruangan WHERE kode_ruangan = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $kode);
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+
+        $link = null;
+        return $result;
+    }
 }
-?>

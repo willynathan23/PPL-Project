@@ -19,12 +19,12 @@ class Asisten
       $this->pertemuan = $pertemuan;
    }
 
-   public function getTotal_jam()
+   public function getTotalJam()
    {
       return $this->total_jam;
    }
 
-   public function setTotal_jam($total_jam)
+   public function setTotalJam($total_jam)
    {
       $this->total_jam = $total_jam;
    }

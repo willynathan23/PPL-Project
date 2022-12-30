@@ -12,7 +12,19 @@ class DosenDaoImpl
         return $stmt->fetchAll();
     }
 
-    function dosenLogin($nrp, $password)
+    public function fetchDosen($nrp)
+    {
+        $link = PDOUtil::createConnection();
+        $query = "SELECT * FROM dosen WHERE nrp = ?";
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $nrp);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchObject('Dosen');
+    }
+
+    public function dosenLogin($nrp, $password)
     {
         $link = PDOUtil::createConnection();
         $query = 'SELECT * FROM dosen WHERE nrp = ? AND password = ?';
@@ -26,5 +38,69 @@ class DosenDaoImpl
         $link = null;
 
         return $stmt->fetchObject('Dosen');
+    }
+
+    public function updatePasswordDosen(Dosen $dosen)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+
+
+        $query = 'UPDATE dosen SET password = ? WHERE nrp = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $dosen->getPassword());
+        $stmt->bindValue(2, $dosen->getNrp());
+
+        $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        return $result;
+    }
+
+    public function updateDosen(Dosen $dosen)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+
+        $query = 'UPDATE dosen SET nama = ? WHERE nrp = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $dosen->getNama());
+        $stmt->bindValue(2, $dosen->getNrp());
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+
+        $link = null;
+        return $result;
+    }
+
+    public function deleteDosen($nrp)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+
+        $query = 'DELETE FROM dosen WHERE nrp = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $nrp);
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+
+        $link = null;
+        return $result;
     }
 }
