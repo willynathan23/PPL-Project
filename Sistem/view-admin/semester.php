@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -24,8 +24,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <label for="NIK" class="form-label">Periode</label>
-                        <input type="text" name="txtNIK" placeholder="NIK" autofocus required>
+                        <label for="Periode" class="form-label">Periode</label>
+                        <input type="text" name="txtPeriode" placeholder="Periode" autofocus >
+                    </div>
+                    <div class="row mt-3">
+                    <input type="file" name="upcsv" accept=".csv">
                     </div>
                 </div>
                 <div class="modal-footer">

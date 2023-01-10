@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -12,7 +12,7 @@
                     Input Data
                 </button>
             </div>
-        </div>
+        </div>  
     </div>
     <!-- Modal -->
     <div class="modal fade" id="Input" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="InputLabel" aria-hidden="true">
@@ -25,11 +25,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="Ruangan" class="form-label">Kode</label>
-                        <input type="text" name="txtRuangan" placeholder="Kode Ruangan" autofocus required>
+                        <input type="text" name="txtKodeRuangan" placeholder="Kode Ruangan" autofocus>
                     </div>
                     <div class="row">
                         <label for="NamaRuangan" class="form-label">Nama Ruangan</label>
-                        <input type="text" name="txtNamaRuangan" placeholder="Nama Ruangan" autofocus required>
+                        <input type="text" name="txtNamaRuangan" placeholder="Nama Ruangan" autofocus>
+                    </div>
+                    <div class="row mt-3">
+                    <input type="file" name="upcsv" accept=".csv">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -39,6 +42,7 @@
             </div>
         </div>
     </div>
+
 
     <table class="display" id="abs">
         <thead>

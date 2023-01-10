@@ -37,6 +37,26 @@ class MahasiswaDaoImpl
       return $stmt->fetchObject('Mahasiswa');
    }
 
+
+   public function insertNewMahasiswa(Mahasiswa $mahasiswa)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+        $query = 'INSERT INTO mahasiswa(nrp, nama_mhs) VALUES(?,?)';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $mahasiswa->getNrp());
+        $stmt->bindValue(2, $mahasiswa->getNamaMahasiswa());
+        $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
    public function updateMahasiswa(Mahasiswa $mahasiswa)
    {
       $result = 0;

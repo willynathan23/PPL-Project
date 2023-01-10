@@ -24,6 +24,25 @@ class RuanganDaoImpl
         return $stmt->fetchObject('Ruangan');
     }
 
+    public function insertNewRuangan(Ruangan $ruangan)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+        $query = 'INSERT INTO ruangan(kode_ruangan, nama_ruangan) VALUES(?,?)';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $ruangan->getKodeR());
+        $stmt->bindValue(2, $ruangan->getNamaR());
+        $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
     public function updateRuangan(Ruangan $ruangan)
     {
         $result = 0;

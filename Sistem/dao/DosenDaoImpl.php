@@ -61,6 +61,27 @@ class DosenDaoImpl
         return $result;
     }
 
+
+    public function insertNewDosen(Dosen $dosen)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+        $query = 'INSERT INTO dosen(nrp, nama, password) VALUES(?,?,?)';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $dosen->getNrp());
+        $stmt->bindValue(2, $dosen->getNama());
+        $stmt->bindValue(3, $dosen->getPassword());
+        $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
     public function updateDosen(Dosen $dosen)
     {
         $result = 0;

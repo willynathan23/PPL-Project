@@ -1,3 +1,39 @@
+<style>
+    .cari{
+        background-color: white;
+        width: 100%;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 0 60px 0 20px;
+        font-size: 18px;
+    }
+
+    .cari .namamahasiswa {
+        /* opacity: 0; */
+        /* pointer-events: none; */
+        padding: 10px 8px;
+        max-height: 280px;
+        overflow-y: auto;
+        /* list-style: none; */
+    }
+
+    .namamahasiswa li {
+        list-style: none;
+        cursor: default;
+        border-radius: 3px;
+        background-color: white;
+        padding: 8px 12px;
+        width: 100%;
+        /* display: none; */
+
+    }
+
+    .namamahasiswa li:hover {
+        background: #efefef;
+    }
+</style>
 <form action="" method="post" enctype="multipart/form-data">
     <!-- Button trigger modal -->
     <button type="button" class="btn mt-3" style="background-color: #0EAB01; color:white;" data-bs-toggle="modal" data-bs-target="#Input">
@@ -82,8 +118,15 @@
                     <hr>
 
                     <!-- Asisten -->
-                    <p class="fs-6 fw-bold">Asisten</p>
-
+                    <p class="fs-6 fw-bold">Asisten 1</p>
+                    <div class="cari">
+                        <input id="keyword" type="text" placeholder="Nama Asisten 1" style="width: 100%;">
+                        <div class="namamahasiswa" id="nama">
+                            <li>asd</li>
+                            <li>qwe</li>
+                            <li>xczxc</li>
+                        </div>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-4">
                             <label for="namamahasiswa1">Nama Mahasiswa 1</label>
@@ -102,6 +145,8 @@
                         </div>
                     </div>
 
+                    <p class="fs-6 fw-bold">Asisten 2</p>
+
                     <div class="row mb-2">
                         <div class="col-4">
                             <label for="namamahasiswa2">Nama Mahasiswa 2</label>
@@ -119,6 +164,8 @@
                             <input type="number" name="totaljam2" id="totaljam2" min=0>
                         </div>
                     </div>
+
+                    <p class="fs-6 fw-bold">Asisten 3</p>
 
                     <div class="row mb-2">
                         <div class="col-4">
@@ -202,3 +249,24 @@
         });
     </script>
 </table>
+
+<script>
+    var keyword = document.getElementById('keyword');
+    var nama = document.getElementById('namamahasiswa');
+
+    // event keyword
+
+    keyword.addEventListener('keyup', function(){
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState == 4 && xhr.status == 200){
+                nama.innerHTML = xhr.responseText;
+            }
+        }
+
+        xhr.open('GET', 'ajax/asisten.php', true);
+        xhr.send();
+
+    });
+</script>

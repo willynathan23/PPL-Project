@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -23,28 +23,72 @@
                     </div>
                     <div class="modal-body">
                         <div class="row mb-2">
-                            <label for="KodeId" class="form-label">NIK</label>
-                            <input type="text" name="nik" placeholder="NIK (etc: 720004)" autofocus required>
+                            <label for="nikId" class="form-label">NIK</label>
+                            <select name="nik" id="nikID">
+                                <option selected>---Please Select Name---</option>
+                                <?php
+                                /**@var $item dosen */
+                                foreach ($doss as $item) {
+                                    echo '<option value="' . $item->getNrp() . '">' . $item->getNrp() . ' / ' . $item->getNama() . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="row mb-2">
-                            <label for="MatkulId" class="form-label">Kode Matakuliah</label>
-                            <input type="text" name="kode" placeholder="Kode Matakuliah (etc: IN204)" required>
+                            <label for="kodeId" class="form-label">Kode Matakuliah</label>
+                            <select name="kode" id="kodeID">
+                                <option selected>---Please Select Matakuliah---</option>
+                                <?php
+                                /**@var $item matakuliah */
+                                foreach ($matkul as $item) {
+                                    echo '<option value="' . $item->getKodeM() . '">' . $item->getKodeM() . ' ' . $item->getNamaM() . '</option>';
+                                }
+                                ?>
+                            </select>
+
                         </div>
                         <div class="row mb-2">
-                            <label for="MatkulId" class="form-label">Periode Semester</label>
-                            <input type="text" name="semester" placeholder="Periode Semester (etc: 2022 Ganjil)" required>
+                            <label for="semesterId" class="form-label">Periode Semester</label>
+                            <select name="semester" id="semesterID">
+                                <option selected>---Please Select Periode---</option>
+                                <?php
+                                /**@var $item semester */
+                                foreach ($sems as $item) {
+                                    echo '<option value="' . $item->getPeriode() . '">' . $item->getPeriode() . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="row mb-2">
-                            <label for="MatkulId" class="form-label">Kode Ruangan</label>
-                            <input type="text" name="ruangan" placeholder="Kode Ruangan (etc: Adv 3)" required>
+                            <label for="ruanganId" class="form-label">Kode Ruangan</label>
+                            <select name="ruangan" id="ruanganID">
+                                <option selected>---Please Select Ruangan---</option>
+                                <?php
+                                /**@var $item semester */
+                                foreach ($ruang as $item) {
+                                    echo '<option value="' . $item->getKodeR() . '">' . $item->getNamaR() . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="row mb-2">
                             <label for="MatkulId" class="form-label">Kelas</label>
-                            <input type="text" name="kelas" placeholder="Kelas (etc: A)" required>
+                            <select name="kelas" id="kelasID">
+                                <option selected>---Please Select Class</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                            </select>
                         </div>
                         <div class="row mb-2">
                             <label for="MatkulId" class="form-label">Tipe</label>
-                            <input type="text" name="tipe" placeholder="Tipe (etc: Teori)" required>
+                            <select name="tipe" id="kelasID">
+                                <option selected>---Please Select Tipe</option>
+                                <option value="Teori">Teori</option>
+                                <option value="Praktikum">Praktikum</option>
+                            </select>
+                        </div>
+                        <div class="row mt-3">
+                            <input type="file" name="upcsv" accept=".csv">
                         </div>
                     </div>
                     <div class="modal-footer">

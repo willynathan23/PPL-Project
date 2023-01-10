@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -25,11 +25,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="NIK" class="form-label">NIK</label>
-                        <input type="text" name="txtNIK" placeholder="NIK" autofocus required>
+                        <input type="text" name="txtNIK" placeholder="NIK" autofocus>
                     </div>
                     <div class="row">
                         <label for="NamaDosen" class="form-label">Nama Dosen</label>
-                        <input type="text" name="txtNamaDosen" placeholder="Nama Dosen" autofocus required>
+                        <input type="text" name="txtNamaDosen" placeholder="Nama Dosen" autofocus>
+                    </div>
+                    <div class="row">
+                        <label for="Password" class="form-label">Password</label>
+                        <input type="text" name="txtPassword" placeholder="Default (12345)" autofocus>
+                    </div>
+                    <div class="row mt-2">
+                        <input type="file" name="upcsv" accept=".csv">
                     </div>
                 </div>
                 <div class="modal-footer">

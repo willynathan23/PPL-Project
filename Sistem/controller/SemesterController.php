@@ -37,6 +37,73 @@ class SemesterController
          }
       }
 
+      $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($submitPressed)) {
+         $periode = filter_input(INPUT_POST, 'txtPeriode');
+
+         if (empty($periode)) {
+            echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+         } else {
+            $semester = new Semester();
+            $semester->setPeriode($periode);
+            $result = $this->semesterDao->insertNewSemester($semester);
+            if ($result) {
+               echo '<script>
+                    swal({
+                        title: "Input Success!",
+                        text: "Data Added",
+                        icon: "success",
+                      });
+                      </script>';
+            } else {
+               echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+            }
+         }
+      }
+
+      $dataCSV = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($dataCSV)) {
+         $fh = fopen($_FILES["upcsv"]["tmp_name"], "r");
+         if ($fh === false) {
+            echo '<script>
+                     swal({
+                        title: "Input failed!",
+                        text: "Failed to uploaded",
+                        icon: "error",
+                     });
+                  </script>';
+         }
+         while (($col = fgetcsv($fh)) !== false) {
+            try {
+               $semester = new Semester();
+               $semester->setPeriode($col[0]);
+               $result = $this->semesterDao->insertNewSemester($semester);
+            } catch (Exception $ex) {
+               echo $ex->getMessage();
+            }
+         }
+         fclose($fh);
+         echo '<script>
+                  swal({
+                     title: "Input Success!",
+                     text: "Data Added",
+                     icon: "success",
+                  });
+               </script>';
+      }
+
       $semester = $this->semesterDao->fetchAllSemester();
 
 

@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -23,11 +23,14 @@
                         <div class="modal-body">
                             <div class="row">
                                 <label for="KodeId" class="form-label">Kode</label>
-                                <input type="text" name="txtKode" placeholder="Kode (etc: IN1111)" autofocus required>
+                                <input type="text" name="txtKode" placeholder="Kode (etc: IN1111)" autofocus>
                             </div>
                             <div class="row">
                                 <label for="MatkulId" class="form-label">Nama Matakuliah</label>
-                                <input type="text" name="txtMatkul" placeholder="Matakuliah (etc: Jaringan Komputer)" autofocus required>
+                                <input type="text" name="txtMatkul" placeholder="Matakuliah (etc: Jaringan Komputer)" autofocus>
+                            </div>
+                            <div class="row mt-3">
+                                <input type="file" name="upcsv" accept=".csv">
                             </div>
                         </div>
                         <div class="modal-footer">

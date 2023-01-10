@@ -36,10 +36,76 @@ class RuanganController
          }
       }
 
+      $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($submitPressed)) {
+         $kodeR = filter_input(INPUT_POST, 'txtKodeRuangan');
+         $namaR = filter_input(INPUT_POST, 'txtNamaRuangan');
+
+         if (empty($kodeR) || empty($namaR)) {
+            echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+         } else {
+            $ruangan = new Ruangan();
+            $ruangan->setKodeR($kodeR);
+            $ruangan->setNamaR($namaR);
+            $result = $this->ruanganDao->insertNewRuangan($ruangan);
+            if ($result) {
+               echo '<script>
+                    swal({
+                        title: "Input Success!",
+                        text: "Data Added",
+                        icon: "success",
+                      });
+                      </script>';
+            } else {
+               echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+            }
+         }
+      }
+
+      $dataCSV = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($dataCSV)) {
+         $fh = fopen($_FILES["upcsv"]["tmp_name"], "r");
+         if ($fh === false) {
+            echo '<script>
+                     swal({
+                        title: "Input failed!",
+                        text: "Failed to uploaded",
+                        icon: "error",
+                     });
+                  </script>';
+         }
+         while (($col = fgetcsv($fh)) !== false) {
+            try {
+               $ruangan = new Ruangan();
+               $ruangan->setKodeR($col[0]);
+               $ruangan->setNamaR($col[1]);
+               $result = $this->ruanganDao->insertNewRuangan($ruangan);
+            } catch (Exception $ex) {
+               echo $ex->getMessage();
+            }
+         }
+         fclose($fh);
+         echo '<script>
+                  swal({
+                     title: "Input Success!",
+                     text: "Data Added",
+                     icon: "success",
+                  });
+               </script>';
+      }
       $ruangan = $this->ruanganDao->fetchAllRuangan();
-
-
-
       include_once 'view-admin/ruangan.php';
    }
 
@@ -56,10 +122,10 @@ class RuanganController
       $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
 
       if (isset($btnSubmit)) {
-         $kode = filter_input(INPUT_POST, 'kode');
-         $nama = filter_input(INPUT_POST, 'nama');
+         $kodeR = filter_input(INPUT_POST, 'kodeR');
+         $namaR = filter_input(INPUT_POST, 'namaR');
 
-         if (empty($kode) || empty($nama)) {
+         if (empty($kodeR) || empty($namaR)) {
             echo '<script>
                 swal({
                     title: "Input failed!",
@@ -70,8 +136,8 @@ class RuanganController
          } else {
             $newRuangan = new Ruangan();
 
-            $newRuangan->setKodeR($kode);
-            $newRuangan->setNamaR($nama);
+            $newRuangan->setKodeR($kodeR);
+            $newRuangan->setNamaR($namaR);
 
             $result = $this->ruanganDao->updateRuangan($newRuangan);
 

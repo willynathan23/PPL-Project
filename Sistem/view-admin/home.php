@@ -73,7 +73,7 @@
 
 <br>
 
-<table class="display" id="abs">
+<table class="display" id="abs" style="width: 100%;">
     <thead>
         <tr style="background-color: #89FF41;">
             <th>NIK</th>

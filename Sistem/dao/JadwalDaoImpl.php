@@ -74,18 +74,18 @@ class JadwalDaoImpl
 
 
 
-    public function insertNewJadwal($kelas, $kode, $nrp, $semester, $ruangan, $tipe)
+    public function insertNewJadwal(Jadwal $jadwal)
     {
         $result = 0;
         $link = PDOUtil::createConnection();
         $query = 'INSERT INTO jadwal(kelas, matkul_kode_matkul, dosen_nrp_dosen, semester_periode, ruangan_kode_ruangan, tipe) VALUES(?,?,?,?,?,?)';
         $stmt = $link->prepare($query);
-        $stmt->bindValue(1, $kelas);
-        $stmt->bindValue(2, $kode);
-        $stmt->bindValue(3, $nrp);
-        $stmt->bindValue(4, $semester);
-        $stmt->bindValue(5, $ruangan);
-        $stmt->bindValue(6, $tipe);
+        $stmt->bindValue(1, $jadwal->getKelas());
+        $stmt->bindValue(2, $jadwal->getMatkul()->getKodeM());
+        $stmt->bindValue(3, $jadwal->getDosen()->getNrp());
+        $stmt->bindValue(4, $jadwal->getSemester()->getPeriode());
+        $stmt->bindValue(5, $jadwal->getRuangan()->getKodeR());
+        $stmt->bindValue(6, $jadwal->getTipe());
         $link->beginTransaction();
         if ($stmt->execute()) {
             $link->commit();

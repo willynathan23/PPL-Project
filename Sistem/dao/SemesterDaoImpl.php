@@ -25,6 +25,25 @@ class SemesterDaoImpl
         return $stmt->fetchObject('Semester');
     }
 
+
+    public function insertNewSemester(Semester $semester)
+    {
+        $result = 0;
+        $link = PDOUtil::createConnection();
+        $query = 'INSERT INTO semester(periode) VALUES(?)';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $semester->getPeriode());
+        $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
     public function updateSemester(Semester $semester, $newPeriode)
     {
         $result = 0;

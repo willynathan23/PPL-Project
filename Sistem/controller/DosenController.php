@@ -37,6 +37,79 @@ class DosenController
       }
 
 
+      $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($submitPressed)) {
+         $nik = filter_input(INPUT_POST, 'txtNIK');
+         $namaD = filter_input(INPUT_POST, 'txtNamaDosen');
+         $pass = filter_input(INPUT_POST, 'txtPassword');
+
+         if (empty($nik) || empty($namaD)) {
+            echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+         } else {
+            $dosen = new Dosen();
+            $dosen->setNrp($nik);
+            $dosen->setNama($namaD);
+            $dosen->setPassword($pass);
+            $result = $this->dosenDao->insertNewDosen($dosen);
+            if ($result) {
+               echo '<script>
+                    swal({
+                        title: "Input Success!",
+                        text: "Data Added",
+                        icon: "success",
+                      });
+                      </script>';
+            } else {
+               echo '<script>
+                    swal({
+                        title: "Input failed!",
+                        text: "Please fill all the inputs!",
+                        icon: "error",
+                      });
+                      </script>';
+            }
+         }
+      }
+
+      $dataCSV = filter_input(INPUT_POST, 'btnSubmit');
+      if (isset($dataCSV)) {
+         $fh = fopen($_FILES["upcsv"]["tmp_name"], "r");
+         if ($fh === false) {
+            echo '<script>
+                     swal({
+                        title: "Input failed!",
+                        text: "Failed to uploaded",
+                        icon: "error",
+                     });
+                  </script>';
+         }
+         while (($col = fgetcsv($fh)) !== false) {
+            try {
+               $dosen = new Dosen();
+               $dosen->setNrp($col[0]);
+               $dosen->setNama($col[1]);
+               $dosen->setPassword($col[2]);
+               $result = $this->dosenDao->insertNewDosen($dosen);
+            } catch (Exception $ex) {
+               echo $ex->getMessage();
+            }
+         }
+         fclose($fh);
+         echo '<script>
+                  swal({
+                     title: "Input Success!",
+                     text: "Data Added",
+                     icon: "success",
+                  });
+               </script>';
+      }
+
       $dosen = $this->dosenDao->fetchAllDosen();
 
       include_once 'view-admin/dosen.php';
@@ -56,9 +129,9 @@ class DosenController
 
       if (isset($btnSubmit)) {
          $nrp = filter_input(INPUT_POST, 'nrp');
-         $nama = filter_input(INPUT_POST, 'nama');
+         $namaD = filter_input(INPUT_POST, 'namaD');
 
-         if (empty($nrp) || empty($nama)) {
+         if (empty($nrp) || empty($namaD)) {
             echo '<script>
                 swal({
                     title: "Input failed!",
@@ -69,7 +142,7 @@ class DosenController
          } else {
             $newDosen = new Dosen();
             $newDosen->setNrp($nrp);
-            $newDosen->setNama($nama);
+            $newDosen->setNama($namaD);
 
             $result = $this->dosenDao->updateDosen($newDosen);
 

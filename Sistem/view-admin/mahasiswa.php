@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-6">
@@ -25,11 +25,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="NRP" class="form-label">NRP</label>
-                        <input type="text" name="txtNRP" placeholder="NRP" autofocus required>
+                        <input type="text" name="txtNRP" placeholder="NRP" autofocus>
                     </div>
                     <div class="row">
                         <label for="NamaMahasiswa" class="form-label">Nama Mahasiswa</label>
-                        <input type="text" name="txtNamaMahasiswa" placeholder="NamaMahasiswa" autofocus required>
+                        <input type="text" name="txtNamaMahasiswa" placeholder="NamaMahasiswa" autofocus>
+                    </div>
+                    <div class="row mt-3">
+                        <input type="file" name="upcsv" accept=".csv">
                     </div>
                 </div>
                 <div class="modal-footer">

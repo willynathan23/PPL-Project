@@ -51,7 +51,7 @@ class MatkulDaoImpl
     {
         $result = 0;
         $link = PDOUtil::createConnection();
-        $query = 'INSERT INTO matkul(kode, address) VALUES(?,?)';
+        $query = 'INSERT INTO matkul(kode_matkul, nama_matkul) VALUES(?,?)';
         $stmt = $link->prepare($query);
         $stmt->bindValue(1, $matkul->getKodeM());
         $stmt->bindValue(2, $matkul->getNamaM());
