@@ -1,5 +1,9 @@
 <style>
+<<<<<<< HEAD
+    .cari {
+=======
     .cari{
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
         background-color: white;
         width: 100%;
         border-radius: 5px;
@@ -11,12 +15,19 @@
     }
 
     .cari .namamahasiswa {
+<<<<<<< HEAD
+=======
         /* opacity: 0; */
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
         /* pointer-events: none; */
         padding: 10px 8px;
         max-height: 280px;
         overflow-y: auto;
+<<<<<<< HEAD
+        list-style: none;
+=======
         /* list-style: none; */
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
     }
 
     .namamahasiswa li {
@@ -120,11 +131,23 @@
                     <!-- Asisten -->
                     <p class="fs-6 fw-bold">Asisten 1</p>
                     <div class="cari">
+<<<<<<< HEAD
+                        <input id="keyword" type="text" placeholder="Nama Asisten 1" style="width: 100%; border: none;">
+                        <div class="namamahasiswa" id="nama">
+                            <!-- <?php
+
+                            /**@var $item Semester */
+                            foreach ($sems as $item) {
+                                echo '<li>' . $item->getPeriode() . '</li>';
+                            }
+                            ?> -->
+=======
                         <input id="keyword" type="text" placeholder="Nama Asisten 1" style="width: 100%;">
                         <div class="namamahasiswa" id="nama">
                             <li>asd</li>
                             <li>qwe</li>
                             <li>xczxc</li>
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -252,6 +275,17 @@
 
 <script>
     var keyword = document.getElementById('keyword');
+<<<<<<< HEAD
+    var nama = document.getElementById('nama');
+
+    // event keyword
+
+    keyword.addEventListener('keyup', function() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+=======
     var nama = document.getElementById('namamahasiswa');
 
     // event keyword
@@ -261,11 +295,16 @@
 
         xhr.onreadystatechange = function(){
             if (xhr.readyState == 4 && xhr.status == 200){
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
                 nama.innerHTML = xhr.responseText;
             }
         }
 
+<<<<<<< HEAD
+        xhr.open('GET', 'ajax/AsistenAjax.php?keyword' + keyword.value, true);
+=======
         xhr.open('GET', 'ajax/asisten.php', true);
+>>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
         xhr.send();
 
     });
