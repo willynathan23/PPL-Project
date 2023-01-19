@@ -138,10 +138,7 @@ class JadwalController
         }
         $jad = $this->jadwalDao->fetchAllJadwal($_SESSION['nrp']);
         $sems = $this->semesterDao->fetchAllSemester();
-<<<<<<< HEAD
         $maha = $this->mahasiswaDao->fetchAllMahasiswa();
-=======
->>>>>>> 27420b8ca278fbfafe9bb89a459e8e5851006b7f
         include_once 'view/home.php';
     }
 }

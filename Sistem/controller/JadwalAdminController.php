@@ -41,10 +41,10 @@ class JadwalAdminController
          } else {
             $jadwal = new Jadwal();
             $jadwal->setKelas($kelas);
-            $jadwal->setMatkul($kode);
-            $jadwal->setDosen($nik);
-            $jadwal->setSemester($semester);
-            $jadwal->setRuangan($ruangan);
+            $jadwal->getMatkul()->setKodeM($kode);
+            $jadwal->getDosen()->setNrp($nik);
+            $jadwal->getSemester()->setPeriode($semester);
+            $jadwal->getRuangan()->setKodeR($ruangan);
             $jadwal->setTipe($tipe);
             $result = $this->jadwalDao->insertNewJadwal($jadwal);
             if ($result) {
@@ -84,10 +84,10 @@ class JadwalAdminController
                var_dump($col[0]);
                $jadwal = new Jadwal();
                $jadwal->setKelas($col[0]);
-               $jadwal->setMatkul($col[1]);
-               $jadwal->setDosen($col[2]);
-               $jadwal->setSemester($col[3]);
-               $jadwal->setRuangan($col[4]);
+               $jadwal->getMatkul()->setKodeM($col[1]);
+               $jadwal->getDosen()->setNrp($col[2]);
+               $jadwal->getSemester()->setPeriode($col[3]);
+               $jadwal->getRuangan()->setKodeR($col[4]);
                $jadwal->setTipe($col[5]);
                $result = $this->jadwalDao->insertNewJadwal($jadwal);
             } catch (Exception $ex) {
